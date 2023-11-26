@@ -1,0 +1,65 @@
+<div class="m-4">
+
+
+    <div class="card">
+        <div class="card-body">
+
+
+            <h4>Consulta de Fornecedor</h4>
+            <p>Listagem de fornecedores cadastrados.</p>
+            <hr />
+
+
+            <div *ngIf="mensagem" class="alert alert-primary alert-
+                dismissible fade show mb-2" role="alert">
+                <strong>{{mensagem}}</strong>
+                <button type="button" class="btn-close" aria-
+                        label="Close" (click)="mensagem = ''"></button>
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cnpj</th>
+                            <th>Telefone</th>
+                            <th>Operações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        <tr *ngFor="let f of fornecedor">
+                            <td>{{f.nome}}</td>
+                            <td>{{f.cnpj}}</td>
+                            <td>{{f.telefone}}</td>
+                            <td>{{f.endereco.logradouro}}</td>
+                          
+                            <td>
+                                <button class="btn btn-primary btn-sm" [routerLink]="['/editar-fornecedor', f.idFornecedor]">
+                                    Editar
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-danger btn-sm"
+                                    (click)="onDelete(f.idFornecedor)">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                Quantidade de endereços: 
+                                {{fornecedor.length}}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,71 @@
+<div class="m-4">
+
+
+    <div class="card">
+        <div class="card-body">
+
+
+            <h4>Consulta de Endereços</h4>
+            <p>Listagem de endereços cadastrados.</p>
+            <hr />
+
+
+            <div *ngIf="mensagem" class="alert alert-primary alert-
+                dismissible fade show mb-2" role="alert">
+                <strong>{{mensagem}}</strong>
+                <button type="button" class="btn-close" aria-
+                        label="Close" (click)="mensagem = ''"></button>
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Logradouro</th>
+                            <th>Complemento</th>
+                            <th>numero</th>
+                            <th>Bairro</th>
+                            <th>Cidade</th>
+                            <th>Estado</th>
+                            <th>Cep</th>
+                            <th>Operações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        <tr *ngFor="let e of endereco">
+                            <td>{{e.logradouro}}</td>
+                            <td>{{e.complemento}}</td>
+                            <td>{{e.numero}}</td>
+                            <td>{{e.bairro}}</td>
+                            <td>{{e.cidade}}</td>
+                            <td>{{e.estado}}</td>
+                            <td>{{e.cep}}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm">
+                                    Editar
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-danger btn-sm"
+                                    (click)="onDelete(e.idEndereco)">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                Quantidade de endereços: 
+                                {{endereco.length}}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

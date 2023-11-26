@@ -1,0 +1,191 @@
+<div class="m-4">
+  <div class="card">
+    <div class="card-body">
+      <h4>Edição de Endereços</h4>
+      <p>Preencha os campos para editar um endereço.</p>
+      <hr />
+
+      <div
+        *ngIf="mensagem"
+        class="alert alert-primary alert- dismissible fade show mb-2"
+        role="alert"
+      >
+        <strong>{{ mensagem }}</strong>
+        <button
+          type="button"
+          class="btn-close"
+          aria-
+          label="Close"
+          (click)="mensagem = ''"
+        ></button>
+      </div>
+
+      <form [formGroup]="formEdicao" (ngSubmit)="onSubmit()">
+        <input type="hidden" formControlName="idEndereco" />
+
+        <div class="form-group row mb-2">
+          <label for="logradouro" class="col-sm-2 col-form- label"
+            >Logradouro:</label
+          >
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="logradouro"
+              placeholder="Digite o logradouro"
+              formControlName="logradouro"
+            />
+            <span class="text-danger">
+              <span *ngIf="form.logradouro.touched && form.logradouro.invalid">
+                <span *ngIf="form.logradouro.errors.required">
+                  Por favor, informe o logradouro.
+                </span>
+
+                <span *ngIf="form.logradouro.errors.minlength">
+                  Por favor, informe pelo menos 6 caracteres.
+                </span>
+                <span *ngIf="form.logradouro.errors.maxlength">
+                  Por favor, informe no máximo 150 caracteres.
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label for="complemento" class="col-sm-2 col-form- label"
+            >Complemento:</label
+          >
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="complemento"
+              placeholder="Digite o complemento"
+              formControlName="complemento"
+            />
+            <span class="text-danger">
+              <span
+                *ngIf="form.complemento.touched && form.complemento.invalid"
+              >
+                <span *ngIf="form.complemento.errors.required">
+                  Por favor, informe o complemento.
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label for="numero" class="col-sm-2 col-form- label">Numero:</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="numero"
+              placeholder="Digite o o numero"
+              formControlName="numero"
+            />
+            <span class="text-danger">
+              <span *ngIf="form.numero.touched && form.numero.invalid">
+                <span *ngIf="form.numero.errors.required">
+                  Por favor, informe o numero.
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label for="bairro" class="col-sm-2 col-form- label">Bairro:</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="bairro"
+              placeholder="Digite o bairro"
+              formControlName="bairro"
+            />
+            <span class="text-danger">
+              <span *ngIf="form.bairro.touched && form.bairro.invalid">
+                <span *ngIf="form.bairro.errors.required">
+                  Por favor, informe o bairro.
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="cidade" class="col-sm-2 col-form- label">Cidade:</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="cidade"
+              placeholder="Digite o cidade"
+              formControlName="cidade"
+            />
+            <span class="text-danger">
+              <span *ngIf="form.cidade.touched && form.cidade.invalid">
+                <span *ngIf="form.cidade.errors.required">
+                  Por favor, informe o cidade.
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label for="estado" class="col-sm-2 col-form- label">Estado:</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="estado"
+              placeholder="Digite o estado"
+              formControlName="estado"
+            />
+            <span class="text-danger">
+              <span *ngIf="form.estado.touched && form.estado.invalid">
+                <span *ngIf="form.estado.errors.required">
+                  Por favor, informe o estado.
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="cep" class="col-sm-2 col-form- label">Cep:</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="cep"
+              placeholder="Digite o cep"
+              formControlName="cep"
+            />
+            <span class="text-danger">
+              <span *ngIf="form.cep.touched && form.cep.invalid">
+                <span *ngIf="form.cep.errors.required">
+                  Por favor, informe o cep.
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <div class="col-sm-10 offset-sm-2">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!formEdicao.valid"
+            >
+              Salvar Alterações
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
