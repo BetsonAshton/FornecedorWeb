@@ -5,14 +5,12 @@ import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-cadastrar-fornecedor',
-  templateUrl: './cadastrar-fornecedor.component.html',
-  styleUrls: ['./cadastrar-fornecedor.component.css'],
+  selector: 'app-cadastrar-endereco',
+  templateUrl: './cadastrar-endereco.component.html',
+  styleUrls: ['./cadastrar-endereco.component.css'],
 })
-export class CadastrarFornecedorComponent {
+export class CadastrarEnderecoComponent {
   mensagem: string = '';
-  endereco: any[] = [];
-
   httpHeaders: HttpHeaders = new HttpHeaders();
 
   constructor(
@@ -26,41 +24,23 @@ export class CadastrarFornecedorComponent {
         Authorization: `Bearer ${dados.token}`,
       });
     }
-
-    this.spinner.show();
-
-    this.httpClient
-      .get(
-        environment.apiFornecedor + 'api/endereco',
-        { headers: this.httpHeaders } //enviando o token..
-      )
-      .subscribe({
-        next: (data) => {
-          this.endereco = data as any[];
-        },
-        error: (e) => {
-          this.mensagem = e.error.mensagem;
-        },
-      })
-      .add(() => {
-        this.spinner.hide();
-      });
   }
 
-  //objeto para capturar o formulário
   formCadastro = new FormGroup({
-    nome: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(150),
+    logradouro: new FormControl('', [Validators.required,Validators.minLength(6),Validators.maxLength(150),
     ]),
-    cnpj: new FormControl('', [Validators.required]),
-    telefone: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^\d{11}$/), 
-    ]),
-    
-    idEndereco: new FormControl('', [Validators.required]),
+
+    complemento: new FormControl('', [Validators.required]),
+
+    numero: new FormControl('', [Validators.required]),
+
+    bairro: new FormControl('', [Validators.required]),
+
+    cidade: new FormControl('', [Validators.required]),
+
+    estado: new FormControl('', [Validators.required]),
+
+    cep: new FormControl('', [Validators.required]),
   });
 
   get form(): any {
@@ -69,16 +49,16 @@ export class CadastrarFornecedorComponent {
 
   onSubmit(): void {
     this.spinner.show();
+
     this.httpClient
       .post(
-        environment.apiFornecedor + 'api/fornecedor',
+        environment.apiFornecedor + 'api/endereco',
         this.formCadastro.value,
         { headers: this.httpHeaders } //enviando o token..
       )
       .subscribe({
         next: (data: any) => {
           this.mensagem = data.mensagem;
-          this.formCadastro.reset();
         },
         error: (e) => {
           this.mensagem = e.error.mensagem;
