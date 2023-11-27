@@ -21,7 +21,7 @@
 
       <form [formGroup]="formCadastro" (ngSubmit)="onSubmit()">
         <div class="form-group row mb-2">
-          <label for="nome" class="col-sm-2 col-form- label">Nome :</label>
+          <label for="nome" class="col-sm-2 col-form- label">Nome:</label>
           <div class="col-sm-10">
             <input
               type="text"
@@ -31,7 +31,7 @@
               formControlName="nome"
             />
             <span class="text-danger">
-              <span *ngIf="form.nome.touched && form.nome.invalid">
+              <span *ngIf="formCadastro.controls.nome.touched && formCadastro.controls.nome.invalid">
                 <span *ngIf="form.nome.errors.required">
                   Por favor, informe o nome.
                 </span>
@@ -104,7 +104,7 @@
               </option>
             </select>
             <span class="text-danger">
-              <span *ngIf="form.idEndereco.touched && form.idEndereco.invalid">
+              <span *ngIf="formCadastro.controls.idEndereco.touched && formCadastro.controls.idEndereco.invalid">
                 <span *ngIf="form.idEndereco.errors.required">
                   Por favor, informe o endereço do fornecedor.
                 </span>
@@ -115,11 +115,7 @@
 
         <div class="form-group row mb-2">
           <div class="col-sm-10 offset-sm-2">
-            <button
-              type="submit"
-              class="btn btn-success"
-              [disabled]="!formCadastro.valid"
-            >
+            <button type="submit" class="btn btn-success" [disabled]="!formCadastro.valid">
               Cadastrar Fornecedor
             </button>
           </div>
