@@ -57,8 +57,9 @@ export class CadastrarFornecedorComponent {
     cnpj: new FormControl('', [Validators.required]),
     telefone: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^\d{10}$/),
+      Validators.pattern(/^\d{11}$/), 
     ]),
+    
     idEndereco: new FormControl('', [Validators.required]),
   });
 
