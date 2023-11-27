@@ -44,7 +44,7 @@
                             <td>{{e.estado}}</td>
                             <td>{{e.cep}}</td>
                             <td>
-                                <button class="btn btn-primary btn-sm">
+                                <button class="btn btn-primary btn-sm" [routerLink]="['/editar-endereco', e.idEndereco]">
                                     Editar
                                 </button>
                                 &nbsp;
