@@ -4,18 +4,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-
 @Component({
-  selector: 'app-consultar-endereco',
-  templateUrl: './consultar-endereco.component.html',
-  styleUrls: ['./consultar-endereco.component.css']
+  selector: 'app-cadastrar-fornecedor',
+  templateUrl: './cadastrar-fornecedor.component.html',
+  styleUrls: ['./cadastrar-fornecedor.component.css'],
 })
-export class ConsultarEnderecoComponent {
-
+export class CadastrarFornecedorComponent {
   mensagem: string = '';
-  httpHeaders: HttpHeaders = new HttpHeaders();
   endereco: any[] = [];
 
+  httpHeaders: HttpHeaders = new HttpHeaders();
 
   constructor(
     private httpClient: HttpClient,
@@ -25,64 +23,69 @@ export class ConsultarEnderecoComponent {
     if (localStorage.getItem('dados-usuario') != null) {
       var dados = JSON.parse(localStorage.getItem('dados-usuario') as string);
       this.httpHeaders = new HttpHeaders({
-        'Authorization': `Bearer ${dados.token}`
-      })
+        Authorization: `Bearer ${dados.token}`,
+      });
     }
 
-
-    this.onInit();
-  }
-
-
-  onInit(): void {
     this.spinner.show();
 
-
-    this.httpClient.get(
-      environment.apiFornecedor + "api/endereco",
-      { headers: this.httpHeaders } //enviando o token..
-    )
+    this.httpClient
+      .get(
+        environment.apiFornecedor + 'api/endereco',
+        { headers: this.httpHeaders } //enviando o token..
+      )
       .subscribe({
         next: (data) => {
           this.endereco = data as any[];
         },
         error: (e) => {
           this.mensagem = e.error.mensagem;
-        }
+        },
       })
-      .add(
-        () => {
-          this.spinner.hide();
-        }
-      )
+      .add(() => {
+        this.spinner.hide();
+      });
   }
 
+  //objeto para capturar o formulário
+  formCadastro = new FormGroup({
+    nome: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(150),
+    ]),
+    cnpj: new FormControl('', [Validators.required]),
+    telefone: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^\d{11}$/), 
+    ]),
+    
+    idEndereco: new FormControl('', [Validators.required]),
+  });
 
-  onDelete(idEndereco: string): void {
+  get form(): any {
+    return this.formCadastro.controls;
+  }
 
-
-    if (window.confirm('Deseja excluir esse endereço?')) {
-      this.spinner.show();
-
-
-      this.httpClient.delete(
-        environment.apiFornecedor + "api/endereco/" + idEndereco,
+  onSubmit(): void {
+    this.spinner.show();
+    this.httpClient
+      .post(
+        environment.apiFornecedor + 'api/fornecedor',
+        this.formCadastro.value,
         { headers: this.httpHeaders } //enviando o token..
       )
-        .subscribe({
-          next: (data: any) => {
-            this.mensagem = data.mensagem;
-            this.onInit();
-          },
-          error: (e) => {
-            this.mensagem = e.error.mensagem;
-          }
-        })
-        .add(
-          () => {
-            this.spinner.hide();
-          }
-        )
-    }
+      .subscribe({
+        next: (data: any) => {
+          this.mensagem = data.mensagem;
+          this.formCadastro.reset();
+        },
+        error: (e) => {
+          this.mensagem = e.error.mensagem;
+        },
+      })
+      .add(() => {
+        this.spinner.hide();
+      });
   }
 }
